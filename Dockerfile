@@ -10,11 +10,22 @@ RUN brew update && brew upgrade && brew install \
     gawk coreutils pre-commit tfenv terraform-docs \
     tflint tfsec instrumenta/instrumenta/conftest \
     && brew install --ignore-dependencies cdktf \
-    && brew install aws-vault \
     && brew cleanup
 RUN tfenv install latest && tfenv use latest
 
-COPY .gitpod.bashrc /home/gitpod/.bashrc.d/custom
+# ZSH SHELL: Uses "Spaceship" theme with some customization.
+# Uses some bundled plugins and installs some more from github
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.1/zsh-in-docker.sh)" -- \
+    -t https://github.com/denysdovhan/spaceship-prompt \
+    -a 'SPACESHIP_PROMPT_ADD_NEWLINE="false"' \
+    -a 'SPACESHIP_PROMPT_SEPARATE_LINE="false"' \
+    -p git \
+    -p ssh-agent \
+    -p https://github.com/zsh-users/zsh-autosuggestions \
+    -p https://github.com/zsh-users/zsh-completions
+
+# Let us give ZSH on Gitpod a try
+# COPY .gitpod.bashrc /home/gitpod/.bashrc.d/custom
 
 # Give back control
 USER root
