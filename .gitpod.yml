@@ -1,2 +1,1 @@
-image:
-  file: Dockerfile
+image: public.ecr.aws/d2u2b1g2/gitpod-terraform:latest
