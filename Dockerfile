@@ -10,6 +10,7 @@ RUN brew update && brew upgrade && brew install \
     gawk coreutils pre-commit tfenv terraform-docs \
     tflint tfsec instrumenta/instrumenta/conftest \
     && brew install --ignore-dependencies cdktf \
+    && brew install aws-vault \
     && brew cleanup
 RUN tfenv install latest && tfenv use latest
 
